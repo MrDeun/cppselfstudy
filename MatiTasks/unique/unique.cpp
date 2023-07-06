@@ -18,9 +18,9 @@ void fillVector(std::vector<int>& Vector_in, int max_range)
 
 void showVectorInt(std::vector<int> VectorInt)
 {
-    for (int i = 0; i < VectorInt.size()-1; i++)
+    for (int i = 0; i < VectorInt.size(); i++)
     {
-        if (i%10==9)
+        if (i%11==10)
             std::cout<<std::endl;
         std::cout<<VectorInt[i]<<" ";
     }
@@ -34,7 +34,7 @@ void UniqueVector(std::vector<int>& Vector_in)
 
     std::sort(Vector_in.begin(),Vector_in.end());
     LastUniqueID = std::unique(Vector_in.begin(),Vector_in.end());
-    Vector_in.resize(std::distance(Vector_in.begin(),LastUniqueID+1));
+    Vector_in.resize(std::distance(Vector_in.begin(),LastUniqueID));
     return;
 }
 
@@ -44,7 +44,6 @@ int main()
     fillVector(Vector,100);
     showVectorInt(Vector);
     std::cout<<"\n\n\n\n\n\n";
-    std::sort(Vector.begin(),Vector.end());
     UniqueVector(Vector);
     showVectorInt(Vector);
    
