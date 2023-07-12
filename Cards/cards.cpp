@@ -7,24 +7,24 @@ class Card
     friend std::ostream& operator<<(std::ostream& Output, Card& Card_in);
 
     private:
-        enum class libValue {Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten,Jack,Queen,King,Ace};
-        enum class libColor {Club,Diamond,Heart,Spade};
-        int Color;
-        int Value; 
+        std::string Color;
+        std::string Value; 
         bool is_hidden;
     public:
-        Card(int Value_in, int Color_in)
+        static const std::string libValue[13] = {"Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Jack","Queen","King","Ace"};
+        static const std::string libColor[4] = {"Club","Diamond","Heart","Spade"};
+        Card(std::string Value_in, std::string Color_in)
         {
             Value = Value_in;
             Color = Color_in;
             is_hidden = true;
         }
-        int getColor()
+        std::string getColor()
         {
             return Color;
         }
 
-        int getValue()
+        std::string getValue()
         {
             return Value;
         }
@@ -41,7 +41,7 @@ class Deck
             for(int iterator_color=0;iterator_color<4;iterator_color++)
                 for(int iterator_value=0;iterator_value<13;iterator_value++)
                 {
-                    Card placeholder(iterator_value,iterator_color);
+                    Card placeholder(placeholder.libValue[iterator_value],placeholder.libColor[iterator_color]);
                     DeckGame.push_back(placeholder);
                 }
         }
