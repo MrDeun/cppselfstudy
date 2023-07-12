@@ -7,8 +7,7 @@
 double SquareSummary(std::vector<double> VectorDouble)
 {
     double Summary{0};
-    std::vector<double> SquaredDouble;
-    Summary = std::transform_reduce(VectorDouble.begin(),VectorDouble.end(),0.0,std::plus{},[](double side){return side*side;});
+    Summary = std::transform_reduce(VectorDouble.begin(),VectorDouble.end(),0.0,std::plus{},[](double side) -> double {return side*side;});
     return Summary;
     
 }

@@ -29,7 +29,7 @@ void ShowVectorString(std::vector<std::string> VectorString)
 std::vector<std::string> TransformIntToString(std::vector<int> VectorInt)
 {
     std::vector<std::string> VectorString;
-    std::transform(VectorInt.cbegin(),VectorInt.cend(),VectorString.begin(),[](int Input){return std::to_string(Input);}); 
+    std::transform(VectorInt.cbegin(),VectorInt.cend(),std::back_inserter(VectorString),[](int Input){return std::to_string(Input);}); 
     return VectorString;
 }
 
