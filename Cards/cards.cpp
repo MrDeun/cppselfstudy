@@ -61,6 +61,11 @@ class Card
             return cardValue;
         }
 
+        bool getHidden()
+        {
+            return is_hidden;
+        }
+
         std::string valueString()
         {
             switch(cardValue)
@@ -138,7 +143,10 @@ class Deck
             int iterator=1;
         for(Card card_iterator : DeckGame)
             {
-                std::cout<<iterator<<". "<<card_iterator<<std::endl;
+                if(card_iterator.getHidden())
+                    std::cout<<iterator<<". "<<"Card Hidden"<<std::endl;
+                else
+                    std::cout<<iterator<<". "<<card_iterator<<std::endl;
                 iterator++;
             }
         }
