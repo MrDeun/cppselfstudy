@@ -66,6 +66,11 @@ class Card
             return is_hidden;
         }
 
+        void Reveal()
+        {
+            is_hidden=false;
+        }
+
         std::string valueString()
         {
             switch(cardValue)
@@ -125,11 +130,19 @@ class Deck
     public:
         Deck(){}
 
-        void fulfill()
+        void bigFulfill()
         {
             for(libCard::Color Color_in : libCard::AllColors)
                 for(libCard::Value Value_in : libCard::AllValue)
                     DeckGame.emplace_back(Color_in,Value_in);
+            return;
+        }
+
+        void smallFulfill()
+        {
+            for(libCard::Color Color_in : libCard::AllColors)
+                for(int i=0;i<5;i++)
+                    DeckGame.emplace_back(Color_in,libCard::AllValue[7+i]);
             return;
         }
 
@@ -182,10 +195,13 @@ std::ostream& operator<<(std::ostream& Output, Card& Card_in)
 int main()
 {
     Deck DeckOne;
-    DeckOne.fulfill();
+    DeckOne.bigFulfill();
     DeckOne.Show();
     DeckOne.RiffleShuffle();
     DeckOne.Show();
+
+    Deck DeckTwo;
+    DeckTwo.smallFulfill();
     getchar();
     return 0;
 }
