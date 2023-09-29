@@ -141,7 +141,7 @@ class Deck
         void smallFulfill()
         {
             for(libCard::Color Color_in : libCard::AllColors)
-                for(int i=0;i<5;i++)
+                for(int i=0;i<6;i++)
                     DeckGame.emplace_back(Color_in,libCard::AllValue[7+i]);
             return;
         }
@@ -194,14 +194,9 @@ std::ostream& operator<<(std::ostream& Output, Card& Card_in)
 
 int main()
 {
-    Deck DeckOne;
-    DeckOne.bigFulfill();
-    DeckOne.Show();
-    DeckOne.RiffleShuffle();
-    DeckOne.Show();
-
     Deck DeckTwo;
     DeckTwo.smallFulfill();
+    DeckTwo.Show();
     getchar();
     return 0;
 }
