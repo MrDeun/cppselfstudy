@@ -100,7 +100,9 @@ class Card
                 case libCard::Value::King:
                     return "King";
                 case libCard::Value::Ace:
-                    return "Ace";  
+                    return "Ace";
+                default:
+                    return "ERROR";
             }
 
         }
@@ -116,6 +118,8 @@ class Card
                     return "Heart";
                 case libCard::Color::Spade:
                     return "Spade";
+                default:
+                    return "ERROR";
                 
             }
 

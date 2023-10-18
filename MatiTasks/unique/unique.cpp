@@ -4,7 +4,7 @@
 
 int RandomNumber()
 {
-    int generated = (rand() % 10) + 1;
+    int generated = (rand() % 20) + 1;
     return generated;
 }
 
