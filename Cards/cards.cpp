@@ -71,6 +71,11 @@ class Card
             is_hidden=false;
         }
 
+        void Hide()
+        {
+            is_hidden=true;
+        }
+
         std::string valueString()
         {
             switch(cardValue)
