@@ -12,7 +12,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-std=c++20",
                 "-Wall",
-                "-Wextra",
+                "-Wextra"
             ],
             "options": {
                 "cwd": "${fileDirname}"
