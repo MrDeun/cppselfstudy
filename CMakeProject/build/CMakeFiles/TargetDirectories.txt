@@ -1,3 +1,0 @@
-C:/Users/Patryk Michalak/Documents/GitHub/cppselfstudy/CMakeProject/build/CMakeFiles/MyFirstCMake.dir
-C:/Users/Patryk Michalak/Documents/GitHub/cppselfstudy/CMakeProject/build/CMakeFiles/edit_cache.dir
-C:/Users/Patryk Michalak/Documents/GitHub/cppselfstudy/CMakeProject/build/CMakeFiles/rebuild_cache.dir
