@@ -188,7 +188,7 @@ class Deck
                 temp.push_back(DeckGame[(i*2)+1]);
 
             std::copy(temp.begin(),temp.end(),DeckGame.begin());
-
+            delete &temp;
             return;
             
             

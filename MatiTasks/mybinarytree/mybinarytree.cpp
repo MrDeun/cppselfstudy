@@ -2,7 +2,7 @@
 
 class BinaryTree
 {
-
+    private 
 };
 
 class Node
