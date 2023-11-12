@@ -1,26 +1,15 @@
 #include<vector>
-#include<cstdlib>
 #include<iostream>
 #include<algorithm>
 #include<array>
-#include<ranges>
-
+#include<map>
 namespace libCard
 {
         enum class Value
         {
-            Two = 0,
-            Three = 1,
-            Four = 2,
-            Five = 3,
-            Six = 4,
-            Seven = 5,
-            Eight = 6,
-            Nine = 7,
-            Ten = 8,
-            Jack = 9,
-            Queen = 10,
-            King = 11,
+            Two = 0,Three = 1,Four = 2,Five = 3,
+            Six = 4,Seven = 5,Eight = 6,Nine = 7,
+            Ten = 8,Jack = 9,Queen = 10,King = 11,
             Ace = 12
         };
 
@@ -32,8 +21,20 @@ namespace libCard
             Spade = 3,
         };
 
-        std::array AllColors = {Color::Club,Color::Diamond,Color::Heart,Color::Spade};
-        std::array AllValue = {Value::Two,Value::Three,Value::Four,Value::Five,Value::Six,Value::Seven,Value::Eight,Value::Nine,Value::Ten,Value::Jack,Value::Queen,Value::King,Value::Ace};
+        std::map<Value,std::string> valueMap
+        { 
+            {Value::Two,"Two"}, {Value::Three,"Three"}, {Value::Four,"Four"},
+            {Value::Five,"Five"}, {Value::Six,"Six"}, {Value::Seven,"Seven"},
+            {Value::Eight,"Eight"}, {Value::Nine,"Nine"}, {Value::Ten,"Ten"},
+            {Value::Jack,"Jack"}, {Value::Queen,"Queen"},{Value::King,"King"} ,
+            {Value::Ace,"Ace"} 
+        };
+
+        std::map<Color,std::string> colorMap
+        {
+            {Color::Club,"Club"},{Color::Diamond,"Diamond"},
+            {Color::Heart,"Diamond"},{Color::Spade,"Spade"}
+        };
 };
 class Card
 {
@@ -42,7 +43,6 @@ class Card
     private:
         libCard::Color cardColor;
         libCard::Value cardValue;
-        std::string Value; 
         bool is_hidden;
     public:
         Card(libCard::Color Color_in, libCard::Value Value_in)
@@ -78,56 +78,11 @@ class Card
 
         std::string valueString()
         {
-            switch(cardValue)
-            {
-                case libCard::Value::Two:
-                    return "Two";
-                case libCard::Value::Three:
-                    return "Three";
-                case libCard::Value::Four:
-                    return "Four";
-                case libCard::Value::Five:
-                    return "Five";
-                case libCard::Value::Six:
-                    return "Six";
-                case libCard::Value::Seven:
-                    return "Seven";
-                case libCard::Value::Eight:
-                    return "Eight";
-                case libCard::Value::Nine:
-                    return "Nine";
-                case libCard::Value::Ten:
-                    return "Ten";
-                case libCard::Value::Jack:
-                    return "Jack";
-                case libCard::Value::Queen:
-                    return "Queen";
-                case libCard::Value::King:
-                    return "King";
-                case libCard::Value::Ace:
-                    return "Ace";
-                default:
-                    return "ERROR";
-            }
-
+            return libCard::valueMap[cardValue];
         }
         std::string colorString()
         {
-            switch(cardColor)
-            {
-                case libCard::Color::Diamond:
-                    return "Diamond";
-                case libCard::Color::Club:
-                    return "Club";
-                case libCard::Color::Heart:
-                    return "Heart";
-                case libCard::Color::Spade:
-                    return "Spade";
-                default:
-                    return "ERROR";
-                
-            }
-
+            return libCard::colorMap[cardColor];
         }
 };
 
@@ -141,9 +96,9 @@ class Deck
 
         void bigFulfill()
         {
-            for(libCard::Color Color_in : libCard::AllColors)
-                for(libCard::Value Value_in : libCard::AllValue)
-                    DeckGame.emplace_back(Color_in,Value_in);
+            for(auto& [Color,cString] : libCard::colorMap)
+                for(auto& [Value,vString] : libCard::valueMap)
+                    DeckGame.emplace_back(Value,Color);
             return;
         }
 
@@ -206,6 +161,5 @@ int main()
     Deck DeckTwo;
     DeckTwo.smallFulfill();
     DeckTwo.Show();
-    getchar();
     return 0;
 }

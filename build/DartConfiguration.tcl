@@ -4,17 +4,17 @@
 
 
 # Configuration directories and files
-SourceDirectory: F:/Graphic/cppselfstudy/CMakeProject
-BuildDirectory: F:/Graphic/cppselfstudy/build
+SourceDirectory: C:/Users/Patryk Michalak/Documents/GitHub/cppselfstudy/CMakeProject
+BuildDirectory: C:/Users/Patryk Michalak/Documents/GitHub/cppselfstudy/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: DESKTOP-6LH1EBQ
+Site: HP-Laptop
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
-BuildName: Win32-MSBuild
+BuildName: Win32-mingw32-make
 
 # Subprojects
 LabelsForSubprojects: 
@@ -27,8 +27,8 @@ SubmitInactivityTimeout:
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "C:/Program Files/CMake/bin/cmake.exe" "F:/Graphic/cppselfstudy/CMakeProject"
-MakeCommand: "C:\Program Files\CMake\bin\cmake.exe" --build . --config "${CTEST_CONFIGURATION_TYPE}"
+ConfigureCommand: "C:/Program Files/CMake/bin/cmake.exe" "C:/Users/Patryk Michalak/Documents/GitHub/cppselfstudy/CMakeProject"
+MakeCommand: C:/Program\ Files/CMake/bin/cmake.exe --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
 # version control
@@ -63,8 +63,8 @@ UpdateOptions:
 UpdateType: 
 
 # Compiler info
-Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.37.32822/bin/Hostx86/x64/cl.exe
-CompilerVersion: 19.37.32825.0
+Compiler: C:/msys64/ucrt64/bin/g++.exe
+CompilerVersion: 13.1.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 
@@ -81,7 +81,7 @@ MemoryCheckCommandOptions:
 MemoryCheckSuppressionFile: 
 
 # Coverage
-CoverageCommand: C:/msys64/usr/bin/gcov.exe
+CoverageCommand: C:/msys64/ucrt64/bin/gcov.exe
 CoverageExtraFlags: -l
 
 # Testing options
@@ -95,7 +95,7 @@ TimeOut: 1500
 # so would cause the system load to exceed this value.
 TestLoad: 
 
-UseLaunchers: 0
+UseLaunchers: 
 CurlOptions: 
 # warning, if you add new options here that have to do with submit,
 # you have to update cmCTestSubmitCommand.cxx
