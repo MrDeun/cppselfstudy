@@ -21,6 +21,7 @@ namespace libCard
             Spade = 3,
         };
 
+
         std::map<Value,std::string> valueMap
         { 
             {Value::Two,"Two"}, {Value::Three,"Three"}, {Value::Four,"Four"},
@@ -33,9 +34,15 @@ namespace libCard
         std::map<Color,std::string> colorMap
         {
             {Color::Club,"Club"},{Color::Diamond,"Diamond"},
-            {Color::Heart,"Diamond"},{Color::Spade,"Spade"}
+            {Color::Heart,"Heart"},{Color::Spade,"Spade"}
         };
+
+        std::array allValue = {};
+        std::array allColor = {};
+
 };
+
+
 class Card
 {
     friend std::ostream& operator<<(std::ostream& Output, Card& Card_in);
@@ -104,9 +111,9 @@ class Deck
 
         void smallFulfill()
         {
-            for(libCard::Color Color_in : libCard::AllColors)
+            for(auto [Color,cString]: libCard::colorMap)
                 for(int i=0;i<6;i++)
-                    DeckGame.emplace_back(Color_in,libCard::AllValue[7+i]);
+                    DeckGame.emplace_back(Color,libCard::AllValue[7+i]);
             return;
         }
 
