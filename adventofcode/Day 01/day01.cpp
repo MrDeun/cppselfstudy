@@ -1,6 +1,32 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<map>
+
+std::map<std::string,int> translation_table
+{
+    {"one",1},
+    {"two",2},    
+    {"three",3},    
+    {"four",4},    
+    {"five",5},    
+    {"six",6},   
+    {"seven",7},    
+    {"eight",8},    
+    {"nine",9},
+};
+
+
+void translate_word(std::string& str_in)
+{
+    for (int i = 0; i < translation_table.size(); i++)
+    {
+        /* code */
+    }
+    
+}
+
+
 
 int main()
 {
@@ -13,13 +39,9 @@ int main()
 
     while (file.good())
     {
-        line_index++;
-        if (line_index == 14)
-        {
-            continue;
-        }
         
         file >> current_string;
+        translate_word(current_string);
         for (char current_char : current_string)
         {
             if ( (current_char - '0' <= 9) && (current_char - '0' >= 0) )
@@ -37,8 +59,9 @@ int main()
                 break;
             }
         }
+
         sum += std::stoi(temp.c_str());
-        std::cout<<line_index<<". "<<sum<<"\n";
+        std::cout<<". "<<sum<<"\n";
         temp.clear();
     }
 }
