@@ -37,8 +37,11 @@ namespace libCard
             {Color::Heart,"Heart"},{Color::Spade,"Spade"}
         };
 
-        std::array allValue = {};
-        std::array allColor = {};
+         std::array<Value,13> AllValue = {Value::Two,Value::Three,Value::Four,Value::Five,
+                                Value::Six,Value::Seven,Value::Eight,Value::Nine
+                                ,Value::Ten,Value::Jack,Value::Queen,Value::King
+                                ,Value::Ace};
+        // std::array allColor = {};
 
 };
 
