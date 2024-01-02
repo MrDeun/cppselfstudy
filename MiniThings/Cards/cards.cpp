@@ -3,6 +3,7 @@
 #include<algorithm>
 #include<array>
 #include<map>
+#include<algorithm>
 namespace libCard
 {
         enum class Value
@@ -138,10 +139,10 @@ class Deck
             }
         }
 
-        void Shuffle()
-        {
-            std::random_shuffle(DeckGame.begin(),DeckGame.end());
-        }
+        // void Shuffle()
+        // {
+        //     std::shuffle(DeckGame.begin(),DeckGame.end());
+        // }
 
         void RiffleShuffle()
         {
