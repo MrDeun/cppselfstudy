@@ -21,11 +21,15 @@ class Task
 			this->is_done = true;
 		}
 
-
+		const std::string& get_title_in()
+		{
+			return this->title;
+		}
 
 };
 
 std::ostream& operator<<(std::ostream& output, Task task_in)
 {
-    output << task_in.title << task_in.is_done;;
+    output << task_in.title << " " << task_in.is_done ? "DONE":"NOT DONE";
+	return output;
 }

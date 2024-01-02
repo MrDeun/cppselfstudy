@@ -1,12 +1,20 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <memory>
 
 #include "menu_enums.hpp"
 #include "task.hpp"
 
+void clear_screen()
+{
+	std:: cout << "\033[2J\033[1;1H";
+	return;
+}
+
 std::vector<Task> load_tasklist(const std::string& username, std::vector<Task>& task_list)
 {
+	clear_screen();
 	std::ifstream file(username + ".txt");
 
 	if(!file.good())
@@ -27,26 +35,79 @@ std::vector<Task> load_tasklist(const std::string& username, std::vector<Task>& 
 	return task_list;
 }
 
+void view_tasklist(const std::vector<Task>& tasklist, Task* ptr_task)
+{
+	clear_screen();
+	for (size_t i = 0; i < tasklist.size(); i++)
+	{
+		if (ptr_task == &tasklist[i])
+		{
+			std::cout << ">";
+		}
+		
+		else
+		{
+			std::cout << " ";
+		}
+
+		std::cout << i+1 << ". "<< tasklist[i] << "\n";
+	}
+}
+
 void save_tasklist(std::vector<Task>& tasklist,std::string username) //TO-DO
 {
+	clear_screen();
 	std::ofstream file(username + ".txt");
 
 	for (Task element : tasklist)
 	{
-		file << element;
+		file << element << "\n";
 	}
-	
-	
+
+	file.close();
+	std::cout << "Tasklist saved!";
+	return;
 }
 
 void modify_task(std::vector<Task>& tasklist) //TO-DO
 {
-	std::unique_ptr<Task> pointer_at_current_task = nullptr;
+	int64_t index = 0;
+	Task* highlighted_task = &tasklist[index];
+
+	do
+	{
+		view_tasklist(tasklist,highlighted_task);
+		switch(getchar())
+		{
+			case 'w':
+				if( (index-1) < 0) break;
+				index--;
+				highlighted_task--;
+				break;
+			case 's':
+				if( (index+1) > tasklist.size()) break;
+				index--;
+				highlighted_task--;
+				break;
+			case 'd':
+				handle_task();
+
+				
+		}
+	} while (/* condition */);
+	
+	
+	
+
+
+	highlighted_task = nullptr;
+	delete highlighted_task;
+	
 }
 
 void add_task(std::vector<Task>& tasklist)
 {
-	std::system("clear");
+	clear_screen();
 
 	std::string title{};
 
@@ -58,7 +119,13 @@ void add_task(std::vector<Task>& tasklist)
 
 void show_tasklist(std::vector<Task>& tasklist) //TO-DO
 {
+	clear_screen();
 
+	for (size_t i=0; i < tasklist.size(); i++)
+	{
+		std::cout << i+1 <<". "<< tasklist[i].get_title_in() << "\n";
+	}
+	
 }
 
 void main_menu(std::vector<Task>& tasklist, const std::string& username) //TO-DO
