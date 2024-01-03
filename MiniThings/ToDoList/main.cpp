@@ -1,7 +1,7 @@
+#include <cstdio>
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <memory>
 
 #include "menu_enums.hpp"
 #include "task.hpp"
@@ -54,7 +54,7 @@ void view_tasklist(const std::vector<Task>& tasklist, Task* ptr_task)
 	}
 }
 
-void save_tasklist(std::vector<Task>& tasklist,std::string username) //TO-DO
+void save_tasklist(std::vector<Task>& tasklist,std::string username) 
 {
 	clear_screen();
 	std::ofstream file(username + ".txt");
@@ -69,15 +69,56 @@ void save_tasklist(std::vector<Task>& tasklist,std::string username) //TO-DO
 	return;
 }
 
+void delete_task(std::vector<Task>& tasklist) // TO-DO
+{
+
+}
+
+void modify_task(Task& modified_task)
+{
+	std::string new_title{};
+	std::cout << "Input your new title: ";
+	std::cin >> new_title;
+	modified_task.change_title(new_title);
+}
+ 
+void handle_task(Task& modified_task) //TO-DO
+{
+	clear_screen();
+  	int choice{};
+  	do {
+		std::cout << modified_task << "\n"
+			<< "1. Modify title\n"
+			<< "2. Mark as done\n";
+    	choice = getchar();
+
+			switch (choice)
+			{
+			case 1:
+				modify_task(modified_task);
+				break;
+			case 2:
+				modified_task.mark_off();
+				break;			
+			default:
+				break;
+			}
+	
+
+
+  	} while ( choice != 'q');
+}
+
 void modify_task(std::vector<Task>& tasklist) //TO-DO
 {
-	int64_t index = 0;
+	size_t index = 0;
 	Task* highlighted_task = &tasklist[index];
-
+	int choice;
 	do
 	{
 		view_tasklist(tasklist,highlighted_task);
-		switch(getchar())
+		choice = getchar();
+		switch(choice)
 		{
 			case 'w':
 				if( (index-1) < 0) break;
@@ -86,19 +127,20 @@ void modify_task(std::vector<Task>& tasklist) //TO-DO
 				break;
 			case 's':
 				if( (index+1) > tasklist.size()) break;
-				index--;
-				highlighted_task--;
+				index++;
+				highlighted_task++;
 				break;
 			case 'd':
-				handle_task();
+				handle_task(tasklist[index]);
+				break;
+			case 'q':
+				break;
+			default:
+				break;
 
 				
 		}
-	} while (/* condition */);
-	
-	
-	
-
+	} while (choice != 'q');
 
 	highlighted_task = nullptr;
 	delete highlighted_task;
@@ -123,7 +165,7 @@ void show_tasklist(std::vector<Task>& tasklist) //TO-DO
 
 	for (size_t i=0; i < tasklist.size(); i++)
 	{
-		std::cout << i+1 <<". "<< tasklist[i].get_title_in() << "\n";
+		std::cout << i+1 <<". "<< tasklist[i].get_title() << "\n";
 	}
 	
 }
@@ -134,6 +176,7 @@ void main_menu(std::vector<Task>& tasklist, const std::string& username) //TO-DO
 	menu_choice choice;
 	do
 	{
+		clear_screen();
 			std::cout	<< "-- What do you want to do now? --\n"
 						<< 	"1. Save my current tasklist \n"
 						<< 	"2. Show my current tasklist \n"
@@ -156,6 +199,9 @@ void main_menu(std::vector<Task>& tasklist, const std::string& username) //TO-DO
 				break;
 			case MODIFY:
 				modify_task(tasklist);
+				break;
+			case DELETE:
+				delete_task(tasklist);
 				break;
 			case EXIT:
 				break;

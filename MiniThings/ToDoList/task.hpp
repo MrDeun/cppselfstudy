@@ -21,7 +21,12 @@ class Task
 			this->is_done = true;
 		}
 
-		const std::string& get_title_in()
+		void change_title(std::string new_title)
+		{
+			this->title = new_title;
+		}
+
+		const std::string& get_title()
 		{
 			return this->title;
 		}
