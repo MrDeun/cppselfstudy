@@ -31,6 +31,11 @@ class Task
 			return this->title;
 		}
 
+		const bool& get_state()
+		{
+			return this->is_done;
+		}
+
 };
 
 std::ostream& operator<<(std::ostream& output, Task task_in)

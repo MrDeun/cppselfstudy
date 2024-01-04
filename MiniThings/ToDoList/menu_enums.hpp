@@ -1,14 +1,9 @@
 enum menu_choice
 {
-    SAVE,
+    SAVE = 1,
     SHOW,
     ADD,
-    DELETE,
     MODIFY,
+    DELETE,
     EXIT,
 };
-
-std::istream& operator>>(std::istream& input, menu_choice choice)
-{
-    input >> choice;
-}

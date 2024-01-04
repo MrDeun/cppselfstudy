@@ -1,7 +1,7 @@
-#include <cstdio>
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <limits>
 
 #include "menu_enums.hpp"
 #include "task.hpp"
@@ -12,8 +12,16 @@ void clear_screen()
 	return;
 }
 
-std::vector<Task> load_tasklist(const std::string& username, std::vector<Task>& task_list)
+void cin_cleanup()
 {
+	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+	return;
+}
+
+std::vector<Task> load_tasklist(const std::string& username)
+{
+	std::vector<Task> task_list = {};
 	clear_screen();
 	std::ifstream file(username + ".txt");
 
@@ -69,17 +77,58 @@ void save_tasklist(std::vector<Task>& tasklist,std::string username)
 	return;
 }
 
-void delete_task(std::vector<Task>& tasklist) // TO-DO
+void delete_task(std::vector<Task>& tasklist)
 {
+	size_t index = 0;
+	Task* highlighted_task = &tasklist[index];
+	std::string temp{};
+	int choice{};
+	do
+	{
+		view_tasklist(tasklist,highlighted_task);
+		choice = getchar();
+		switch(choice)
+		{
+			case 'w':
+				if( (index-1) < 0) break;
+				index--;
+				highlighted_task--;
+				break;
+			case 's':
+				if( (index+1) > tasklist.size()) break;
+				index++;
+				highlighted_task++;
+				break;
+			case 'd':
+				tasklist.erase(tasklist.begin() + index);
+				tasklist.shrink_to_fit();
+				index = 0;
+				highlighted_task = &tasklist[index];
+				break;
+			case 'q':
+				break;
+			default:
+				break;
 
+				
+		}
+	} while (choice != 'q');
+
+	highlighted_task = nullptr;
+	delete highlighted_task;
 }
 
 void modify_task(Task& modified_task)
 {
 	std::string new_title{};
 	std::cout << "Input your new title: ";
-	std::cin >> new_title;
+	std::getline(std::cin,new_title);
 	modified_task.change_title(new_title);
+	std::cout << "\n Title change!";
+
+	int pause = getchar(); // Just for pause
+
+	return;
 }
  
 void handle_task(Task& modified_task) //TO-DO
@@ -87,23 +136,29 @@ void handle_task(Task& modified_task) //TO-DO
 	clear_screen();
   	int choice{};
   	do {
-		std::cout << modified_task << "\n"
+		std::cout << modified_task.get_title() << "\n"
 			<< "1. Modify title\n"
-			<< "2. Mark as done\n";
+			<< "2. Mark as done\n"
+			<< "q. Exit to Task Choice\n";
     	choice = getchar();
 
 			switch (choice)
 			{
-			case 1:
+			case '1':
 				modify_task(modified_task);
 				break;
-			case 2:
-				modified_task.mark_off();
-				break;			
+			case '2':
+				if ( modified_task.get_state() )
+					std::cout << modified_task.get_title() << "was already marked off! \n";
+				else
+					modified_task.mark_off();
+				break;
+			case 'q':
+				break; // Exits the loop			
 			default:
 				break;
 			}
-	
+		clear_screen();
 
 
   	} while ( choice != 'q');
@@ -111,11 +166,13 @@ void handle_task(Task& modified_task) //TO-DO
 
 void modify_task(std::vector<Task>& tasklist) //TO-DO
 {
+	std::string temp{};
 	size_t index = 0;
 	Task* highlighted_task = &tasklist[index];
 	int choice;
 	do
 	{
+		temp.clear();
 		view_tasklist(tasklist,highlighted_task);
 		choice = getchar();
 		switch(choice)
@@ -137,8 +194,6 @@ void modify_task(std::vector<Task>& tasklist) //TO-DO
 				break;
 			default:
 				break;
-
-				
 		}
 	} while (choice != 'q');
 
@@ -154,9 +209,16 @@ void add_task(std::vector<Task>& tasklist)
 	std::string title{};
 
 	std::cout << "Title for a new task: ";
-	std::cin >> title;
+
+	std::getline(std::cin,title);
+	cin_cleanup();
+
 	Task new_task(title);
 	tasklist.push_back(new_task);
+
+	std::cout <<"\nNew task added! \n";
+	int choice = getchar();
+	return;
 }
 
 void show_tasklist(std::vector<Task>& tasklist) //TO-DO
@@ -167,13 +229,15 @@ void show_tasklist(std::vector<Task>& tasklist) //TO-DO
 	{
 		std::cout << i+1 <<". "<< tasklist[i].get_title() << "\n";
 	}
+
+	getchar();
 	
 }
 
-void main_menu(std::vector<Task>& tasklist, const std::string& username) //TO-DO
+void main_menu(std::vector<Task>& tasklist, const std::string& username)
 {
 
-	menu_choice choice;
+	int choice{};
 	do
 	{
 		clear_screen();
@@ -181,12 +245,11 @@ void main_menu(std::vector<Task>& tasklist, const std::string& username) //TO-DO
 						<< 	"1. Save my current tasklist \n"
 						<< 	"2. Show my current tasklist \n"
 						<< 	"3. Add a new task to the list \n"
-						<< 	"4. Modify an existing task \n"
-						<< 	"5. Exit the program \n";
-
-
-		std::cin >> choice;
-		switch(choice)
+						<<	"4. Delete an task from the list \n"
+						<< 	"5. Modify an existing task \n"
+						<< 	"6. Exit the program " << std::endl;
+		choice = getchar();
+		switch(choice - '0')
 		{
 			case SAVE:
 				save_tasklist(tasklist, username);
@@ -206,26 +269,25 @@ void main_menu(std::vector<Task>& tasklist, const std::string& username) //TO-DO
 			case EXIT:
 				break;
 			default:
-				std::cerr << "Incorrect Argument!" ;
+				std::cout << "Incorrect Argument!" ;
 				break;
 		}
-	} while (choice != EXIT);
+	} while ( (choice - '0') != EXIT);
 
 	return;
 }
 
 int main()
 {
-	std::string username;
-	std::vector<Task> tasklist{};
+	std::string username{};
 
 	std::cout << "Hello there! What's your username? ";
-	std::cin >> username;
+
+	std::getline(std::cin,username);
+	cin_cleanup();
 
 	std::cout << "\n Attempting to find username: " << username << " ...";
-
-	load_tasklist(username,tasklist);
-
+	std::vector<Task> tasklist = load_tasklist(username);
 	std::cout << "\n User found! Hello "<< username << "!";
 
 	main_menu(tasklist,username);
