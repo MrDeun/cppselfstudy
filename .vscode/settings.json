@@ -76,5 +76,6 @@
         "xutility": "cpp"
     },
     "C_Cpp.default.compilerPath": "C:\\msys64\\mingw64\\bin\\g++.exe",
-    "cmake.sourceDirectory": "C:/Users/Patryk Michalak/Documents/GitHub/cppselfstudy/CMakeProject"
+    "cmake.sourceDirectory": "C:/Users/Patryk Michalak/Documents/GitHub/cppselfstudy/CMakeProject",
+    "bitburner.authToken": "wcSu63+sU4Sg1czIEhL4X4WdCFYzbz0YSkWFjiYTZ7KNCz0vQdyHSGlhY5N9Whz7"
 }
