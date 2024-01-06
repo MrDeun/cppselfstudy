@@ -1,54 +1,51 @@
 #include <iostream>
 #include <sstream>
+#include <vector>
+
+#include "states.hpp"
+#include "task.hpp"
 
 using std::string;
-
-class Task
-{
-    private:
-        string title;
-        bool done = false;
-    public:
-        Task(string title_in)
-        {
-            this->title = title_in;
-        }
-
-        void set_done(bool state)
-        {
-            this->done = state;
-            return;
-        }
-
-        void modify_title(string title_in)
-        {
-            this->title = title_in;
-        }
-
-        string get_title()
-        {
-            return this->title;
-        }
-
-        bool get_done()
-        {
-            return this->done;
-        }
-
-};
-
+using std::vector;
+using std::getline;
+using std::cout;
+using std::cin;
+using std::stringstream;
 
 void process(std::string line)
 {
-    std::stringstream command_stream(line);
+    stringstream command_stream(line);
+    string keyword{};
+    while (command_stream >> keyword)
+    {
+        switch (string_to_command[keyword])
+        {
+        case SAVE:
+            break;
+        case LOAD:
+            break;
+        case NEW:
+            break;
+        case DELETE:
+            break;
+        case SHOW:
+            break;
+        case SAVE:
+            break;
+        
+        default:
+            break;
+        }
+    }
+    
+    
 
 }
 
 int main()
 {
-	
-
-    for(std::string line; std::cout << "STICKY TASK > " && std::getline(std::cin,line);)
+	vector<Task> tasklist{};
+    for(string line; cout << "TO DO LIST > " && getline(cin,line);)
     {
         if ( !line.empty() )  
             process(line); 
