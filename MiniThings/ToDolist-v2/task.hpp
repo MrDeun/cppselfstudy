@@ -1,4 +1,5 @@
 #include <string>
+#include <sstream>
 
 using std::string;
 class Task
@@ -11,6 +12,8 @@ class Task
         {
             this->title = title_in;
         }
+
+        ~Task(){};
 
         void set_done(bool state)
         {
@@ -28,9 +31,22 @@ class Task
             return this->title;
         }
 
+        string state()
+        {
+            string str_output{};
+            str_output += this->title;
+            if (this->done)
+                str_output += " DONE";
+            else
+                str_output += " NOT DONE";
+            
+            return str_output;
+        }
+
         bool get_done()
         {
             return this->done;
         }
+
 
 };
